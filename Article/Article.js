@@ -85,6 +85,26 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'I have no idea what I am doing',
+    date: 'September 2nd, 2019',
+    firstParagraph: `Alohamora wand elf parchment, Wingardium Leviosa hippogriff, house dementors betrayal. Holly, Snape centaur portkey ghost
+        Hermione spell bezoar Scabbers. Peruvian-Night-Powder werewolf, Dobby pear-tickle half-moon-glasses, Knight-Bus. Padfoot
+        snargaluff seeker: Hagrid broomstick mischief managed. Snitch Fluffy rock-cake, 9 ¾ dress robes I must not tell lies. Mudbloods
+        yew pumpkin juice phials Ravenclaw’s Diadem 10 galleons Thieves Downfall. Ministry-of-Magic mimubulus mimbletonia Pigwidgeon
+        knut phoenix feather other minister Azkaban. Hedwig Daily Prophet treacle tart full-moon Ollivanders You-Know-Who cursed.
+        Fawkes maze raw-steak Voldemort Goblin Wars snitch Forbidden forest grindylows wool socks`,
+
+    secondParagraph: `Boggarts lavender robes, Hermione Granger Fantastic Beasts and Where to Find Them. Bee in your bonnet Hand of Glory elder
+        wand, spectacles House Cup Bertie Bott’s Every Flavor Beans Impedimenta. Stunning spells tap-dancing spider Slytherin’s Heir
+        mewing kittens Remus Lupin. Palominos scarlet train black robes, Metamorphimagus Niffler dead easy second bedroom. Padma
+        and Parvati Sorting Hat Minister of Magic blue turban remember my last.`,
+
+    thirdParagraph: `Toad-like smile Flourish and Blotts he knew I’d come back Quidditch World Cup. Fat Lady baubles banana fritters fairy lights 
+        Petrificus Totalus. So thirsty, deluminator firs’ years follow me 12 inches of parchment. Head Boy start-of-term banquet Cleansweep Seven 
+        roaring lion hat. Unicorn blood crossbow mars is bright tonight, feast Norwegian Ridgeback. Come seek us where our voices sound, we cannot 
+        sing above the ground, Ginny Weasley bright red. Fanged frisbees, phoenix tears good clean match.`
   }
 ];
 
@@ -112,3 +132,59 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+const articles = document.querySelector('.articles')
+
+function makeArticle(title, date, parag1, parag2, parag3){
+
+  //make the element 
+  const article = document.createElement('div');
+  const articleTitle = document.createElement('h2');
+  const articleDate = document.createElement('p');
+  const para1 = document.createElement('p');
+  const para2 = document.createElement('p');
+  const para3 = document.createElement('p');
+  const expand = document.createElement('span');
+
+  //setup the class
+  article.classList.add('article');
+  articleDate.classList.add('date');
+  expand.classList.add('expandButton');
+
+  //add the text connent to the eleement
+  articleTitle.textContent = title;
+  articleDate.textContent = date;
+  para1.textContent = parag1;
+  para2.textContent = parag2;
+  para3.textContent = parag3;
+  expand.textContent = '\u25bc Expend';
+
+  //Setup structure of elements
+  article.appendChild(articleTitle);
+  article.appendChild(articleDate);
+  article.appendChild(para1);
+  article.appendChild(para2);
+  article.appendChild(para3);
+  article.appendChild(expand);
+
+
+
+  expand.addEventListener('click', e => {
+    article.classList.toggle('article-open');
+
+    if(expand.textContent === '\u25bc Expend'){
+      expand.textContent = '\u25b2 close'
+    }else{
+      expand.textContent = '\u25bc Expend';
+    }
+
+    e.stopPropagation();
+  })
+
+
+  return article;
+}
+
+data.forEach(datas =>{
+  articles.appendChild(makeArticle(datas.title, datas.date, datas.firstParagraph, datas.secondParagraph, datas.thirdParagraph));
+})

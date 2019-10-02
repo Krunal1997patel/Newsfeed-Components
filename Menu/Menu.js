@@ -33,3 +33,50 @@ let menuItems = [
   Step 6: add the menu component to the DOM.
   
 */
+
+const header = document.querySelector('.header');
+const menuButton = document.querySelector('.menu-button');
+
+menuButton.style.transform = 'rotate(0deg)';
+
+function sideBar(links){
+
+  //********************   Make the element */
+  const div = document.createElement('div');
+  const ul = document.createElement('ul');
+
+  header.appendChild(div);
+
+  /*********************** add class to the element */
+  div.classList.add('menu');
+
+  /******************************loop through to add each list to ul */
+  links.forEach(element => {
+    let li = document.createElement('li')
+    li.textContent = element;
+
+    ul.appendChild(li);
+  });
+
+  div.appendChild(ul);
+  
+  /*******************************event listner to menu class and make the menu img rotate */
+  menuButton.addEventListener('click', e => {
+    const menu = document.querySelector('.menu');
+    menu.classList.toggle('menu--open');
+
+    if(menuButton.style.transform === 'rotate(0deg)'){
+      menuButton.style.transform = 'rotate(90deg)';
+    }else{
+      menuButton.style.transform = 'rotate(0deg)';
+    }
+
+    e.stopPropagation();
+  })
+
+
+//***********************return the div with unorder list */
+  return div
+}
+
+sideBar(menuItems);
